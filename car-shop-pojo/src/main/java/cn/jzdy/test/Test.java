@@ -6,4 +6,5 @@ package cn.jzdy.test;
  */
 public class Test {
 	String name;
+	int age;
 }
