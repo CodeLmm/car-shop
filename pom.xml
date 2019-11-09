@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.jzdy</groupId>
+  <artifactId>car-shop-module</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <!-- maven父工程，继承的所有子工程将会得到父工程依赖的jar包,不同于依赖，依赖不会将<scope>test</scope>范围向下级传
+  		而如果是使用继承关系的话将会得到父工程所有的jar包
+   -->
+  <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  
+  <!-- <properties>标签可方便对版本的统一管理，如spring框架，场景:如果有某一天版本突然需要升级，只需在这里修改 -->
+  <properties>
+  		<!-- jdk版本配置，写在父工程里，所有的子工程得到继承 -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  <!-- 
+  		1、用于进行jar包版本的锁定，在该标签声明jar包版本后
+  		2、在dependencies(自己和继承自己的工程)中对应的jar包版本将不能被声明
+  		3、需要注意的是在<dependencyManagement>声明下的jar包，工程并没有实际引入，而是作为一个
+  		     版本来锁定，要引入要需要在<dependencies>标签下引入
+   -->
+  <dependencyManagement>
+  	<dependencies>
+	  <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+  	</dependencies>
+  </dependencyManagement>
+  
+  
+  <dependencies>
+  <!-- springweb配置  -->
+    <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	<!-- 热部署  -->
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+	</dependency>
+	
+	<!-- springboot框架 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter</artifactId>
+	</dependency>
+	
+  	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <scope>test</scope>
+	</dependency>
+	
+	<!-- 引入log4j2依赖 -->
+	<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+	<!-- 阿里数据源 -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+		<version>1.1.12</version>
+	</dependency>
+  </dependencies>
+   
+  <modules>
+  	<module>car-shop-pojo</module>
+  	<module>car-shop-dao</module>
+  	<module>car-shop-service</module>
+  	<module>car-shop-controller</module>
+  </modules>
+</project>
