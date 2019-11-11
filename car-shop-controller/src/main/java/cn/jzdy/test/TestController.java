@@ -11,6 +11,7 @@ public class TestController {
 	private TestDao testDao;
 	@GetMapping("testMybatis")
 	public Object testMybatis() {
+		//int i =1/0;
 		return testDao.testMybatis();
 	}
 }
