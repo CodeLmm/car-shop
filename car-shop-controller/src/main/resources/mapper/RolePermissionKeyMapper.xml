@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jzdy.dao.RolePermissionKeyMapper">
+  <resultMap id="BaseResultMap" type="cn.jzdy.pojo.RolePermissionKey">
+    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+    <result column="PERMISSION_ID" jdbcType="VARCHAR" property="permissionId" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.jzdy.pojo.RolePermissionKey">
+    insert into u_role_permission_key (ROLE_ID, PERMISSION_ID)
+    values (#{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ROLE_ID, PERMISSION_ID
+    from u_role_permission_key
+  </select>
+</mapper>
