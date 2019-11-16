@@ -18,11 +18,11 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 
+
 /**
  * 阿里数据连接池配置
- * 
- * @author chenwei
- * @date 2019年6月22日 上午10:09:27
+ * Lujingdong
+ * 2019年11月16日
  */
 @Configuration 
 public class DruidConfig {
