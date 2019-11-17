@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jzdy.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.jzdy.pojo.User">
-    <result column="ID" jdbcType="VARCHAR" property="id" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="MAIL" jdbcType="VARCHAR" property="mail" />
-    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="SEX" jdbcType="INTEGER" property="sex" />
-    <result column="AGE" jdbcType="INTEGER" property="age" />
-    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.jzdy.pojo.User">
-    insert into u_user (ID, USERNAME, PASSWORD, 
-      MAIL, PHONE, CREATE_TIME, 
-      UPDATE_TIME, STATUS, NAME, 
-      SEX, AGE, ADDRESS)
-    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{mail,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
-  </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select ID, USERNAME, PASSWORD, MAIL, PHONE, CREATE_TIME, UPDATE_TIME, STATUS, NAME, 
-    SEX, AGE, ADDRESS
-    from u_user
+ 
+  <select id="findUserByUsernameAndPassword" resultType="user">
+    SELECT
+		u.ID,
+		u.USERNAME,
+		u.PASSWORD,
+		u.MAIL,
+		u.PHONE,
+		u.CREATE_TIME,
+		u.UPDATE_TIME,
+		u.STATUS,
+		u.NAME,
+		u.SEX,
+		u.AGE,
+		u.ADDRESS
+	FROM
+		u_user u
+	WHERE u.USERNAME = #{username}
+	AND u.`PASSWORD` = #{password}
   </select>
 </mapper>

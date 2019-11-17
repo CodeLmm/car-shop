@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jzdy.dao.PermissionMapper">
-  <resultMap id="BaseResultMap" type="cn.jzdy.pojo.Permission">
-    <result column="id" jdbcType="VARCHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.jzdy.pojo.Permission">
-    insert into u_permission (id, name)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
-  </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, name
-    from u_permission
-  </select>
+	<select id="findPermissionByUserId" resultType="permission">
+		SELECT
+			*
+		FROM
+		u_permission p
+		LEFT JOIN
+		u_role_permission_key rpk
+		ON rpk.PERMISSION_ID = p.id
+		LEFT JOIN
+		u_role r
+		ON r.id = rpk.ROLE_ID
+		LEFT JOIN
+		u_user_role_key urk
+		ON r.id = urk.ROLE_ID
+		LEFT JOIN u_user u
+		ON u.ID = urk.USER_ID
+		WHERE u.ID = #{id}
+	</select>
 </mapper>

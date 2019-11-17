@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jzdy.dao.RoleMapper">
-  <resultMap id="BaseResultMap" type="cn.jzdy.pojo.Role">
-    <result column="id" jdbcType="VARCHAR" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.jzdy.pojo.Role">
-    insert into u_role (id, name)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
-  </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, name
-    from u_role
+  <select id="finRoleByUserId" resultType="role">
+    SELECT
+		*
+	FROM
+	u_role u
+	LEFT JOIN
+	u_user_role_key urk
+	ON u.id = urk.ROLE_ID
+	WHERE urk.USER_ID = #{id}
   </select>
 </mapper>
