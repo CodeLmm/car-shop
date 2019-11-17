@@ -58,7 +58,7 @@ public class Swagger2Config implements WebMvcConfigurer {
                 .apiInfo(apiInfo())
                 .select()
                 //扫描指定的包生成接口文档
-                .apis(RequestHandlerSelectors.basePackage("cn.kooun.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.jzdy.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

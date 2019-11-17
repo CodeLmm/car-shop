@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	@ExceptionHandler(value = OnlineException.class) //捕获异常
+	@ResponseBody
+	public Object onlineExceptionHandler(Exception e) {
+		return e.getMessage();
+	}
 	@ExceptionHandler(value = Exception.class) //捕获异常
 	@ResponseBody
 	public Object defaultErrorHandler() {
