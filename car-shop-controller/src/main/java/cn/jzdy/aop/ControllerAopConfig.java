@@ -24,7 +24,7 @@ public class ControllerAopConfig {
 	/**
 	 * 指定切入的路径
 	 */
-	@Pointcut("execution(public * cn.jzdy.test..*.*(..))")
+	@Pointcut("execution(public * cn.jzdy.controller..*.*(..))")
 	public void controllerAop() {
 	}
 

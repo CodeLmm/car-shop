@@ -40,7 +40,7 @@ public class BaseAopService {
 		Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
 		NoCheckOnline annotation = method.getAnnotation(NoCheckOnline.class);
 		if(annotation == null) {
-			String ticket = request.getParameter("ticket");
+			String ticket = request.getHeader("userTicket");
 			if(StringUtils.isEmpty(ticket)) {
 				throw new OnlineException("登录失效~");
 			}
@@ -57,7 +57,7 @@ public class BaseAopService {
 				throw new OnlineException("登录失效~");
 			}
 			LoginUser user = (LoginUser)userObj;
-			request.setAttribute("user", user);
+			request.setAttribute("userTicket", user);
 		}
 	}
 

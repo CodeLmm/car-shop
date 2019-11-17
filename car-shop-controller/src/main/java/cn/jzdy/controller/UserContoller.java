@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.jzdy.annotation.aop.NoCheckOnline;
-import cn.jzdy.info.Dict;
+import cn.jzdy.login.LoginUser;
+import cn.jzdy.response.SuccessResult;
+import cn.jzdy.security.SecurityUser;
 import cn.jzdy.service.UserServie;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiImplicitParam;
  * 2019年11月16日
  */
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 @Api(tags = "用户模块")
 @RestController
 @RequestMapping("user")
@@ -28,6 +31,7 @@ public class UserContoller {
 	 * 2019年11月16日
 	 * @return
 	 */
+	@ApiOperation(value = "用户登陆", notes = "用户登陆")
 	@NoCheckOnline
 	@PostMapping("login")
 	@ApiImplicitParams({
@@ -37,4 +41,20 @@ public class UserContoller {
 	public Object login(String username,String password) {
 		return userService.login(username,password);
 	}
+	/**
+	 * 获取用户的信息
+	 * authod lujingdong
+	 * 2019年11月17日
+	 * @return
+	 */
+	@ApiOperation(value = "获取用户的信息", notes = "获取用户的信息")
+	@PostMapping("getUserMessage")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
+	public Object getUserMessage() {
+		LoginUser loginUser = SecurityUser.getCurrentUser();
+		return new SuccessResult<>(loginUser.getUser());
+	}
+	
 }
