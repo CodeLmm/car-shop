@@ -1,10 +1,13 @@
 package cn.jzdy.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import cn.jzdy.pojo.User;
-import java.util.List;
+import io.lettuce.core.dynamic.annotation.Param;
 
+@Mapper
 public interface UserMapper {
-    int insert(User record);
 
-    List<User> selectAll();
+	User findUserByUsernameAndPassword(@Param("username")String username,@Param("password")String password);
+  
 }

@@ -4,7 +4,7 @@ import cn.jzdy.pojo.Permission;
 import java.util.List;
 
 public interface PermissionMapper {
-    int insert(Permission record);
 
-    List<Permission> selectAll();
+
+	List<Permission> findPermissionByUserId(String id);
 }

@@ -1,10 +1,20 @@
 package cn.jzdy.dao;
 
-import cn.jzdy.pojo.Role;
 import java.util.List;
 
-public interface RoleMapper {
-    int insert(Role record);
+import org.apache.ibatis.annotations.Mapper;
 
-    List<Role> selectAll();
+import cn.jzdy.pojo.Role;
+import io.lettuce.core.dynamic.annotation.Param;
+
+/**
+ * 权限
+ * Lujingdong
+ * 2019年11月17日
+ */
+@Mapper
+public interface RoleMapper {
+
+	List<Role> finRoleByUserId(@Param("id")String id);
+ 
 }
