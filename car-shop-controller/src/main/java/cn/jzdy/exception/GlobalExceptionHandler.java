@@ -1,5 +1,7 @@
 package cn.jzdy.exception;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,15 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	
-	@ExceptionHandler(value = OnlineException.class) //捕获异常
-	@ResponseBody
-	public Object onlineExceptionHandler(Exception e) {
-		return e.getMessage();
-	}
+	private final static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	@ExceptionHandler(value = Exception.class) //捕获异常
 	@ResponseBody
-	public Object defaultErrorHandler() {
+	public Object defaultErrorHandler(Exception e) {
+		log.error("写出bug的人，都应该脱去枪毙掉",e);
+		if(e instanceof OnlineException) {
+			return e.getMessage();
+		}
 		return "系统繁忙>>>>>>";
 	}
 }
