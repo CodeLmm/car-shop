@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jzdy.dao.CarMapper">
+  <resultMap id="BaseResultMap" type="cn.jzdy.pojo.Car">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DISCOUNTS" jdbcType="VARCHAR" property="discounts" />
+    <result column="DEALER_QUOTATION" jdbcType="VARCHAR" property="dealerQuotation" />
+    <result column="GUIDE_PRICE" jdbcType="VARCHAR" property="guidePrice" />
+    <result column="DISPALCEMENT" jdbcType="VARCHAR" property="dispalcement" />
+    <result column="OIL_WEAR" jdbcType="VARCHAR" property="oilWear" />
+    <result column="IMG_URL" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="LEVER" jdbcType="VARCHAR" property="lever" />
+    <result column="SECOND_HAND_PICE" jdbcType="VARCHAR" property="secondHandPice" />
+    <result column="INVENTORY" jdbcType="VARCHAR" property="inventory" />
+    <result column="CAR_BRAND" jdbcType="VARCHAR" property="carBrand" />
+    <result column="CAR_TYPE" jdbcType="VARCHAR" property="carType" />
+    <result column="CART_ID" jdbcType="VARCHAR" property="cartId" />
+    <result column="HOT" jdbcType="INTEGER" property="hot" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from c_car
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.jzdy.pojo.Car">
+    insert into c_car (ID, DISCOUNTS, DEALER_QUOTATION, 
+      GUIDE_PRICE, DISPALCEMENT, OIL_WEAR, 
+      IMG_URL, LEVER, SECOND_HAND_PICE, 
+      INVENTORY, CAR_BRAND, CAR_TYPE, 
+      CART_ID, HOT)
+    values (#{id,jdbcType=VARCHAR}, #{discounts,jdbcType=VARCHAR}, #{dealerQuotation,jdbcType=VARCHAR}, 
+      #{guidePrice,jdbcType=VARCHAR}, #{dispalcement,jdbcType=VARCHAR}, #{oilWear,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{lever,jdbcType=VARCHAR}, #{secondHandPice,jdbcType=VARCHAR}, 
+      #{inventory,jdbcType=VARCHAR}, #{carBrand,jdbcType=VARCHAR}, #{carType,jdbcType=VARCHAR}, 
+      #{cartId,jdbcType=VARCHAR}, #{hot,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.jzdy.pojo.Car">
+    update c_car
+    set DISCOUNTS = #{discounts,jdbcType=VARCHAR},
+      DEALER_QUOTATION = #{dealerQuotation,jdbcType=VARCHAR},
+      GUIDE_PRICE = #{guidePrice,jdbcType=VARCHAR},
+      DISPALCEMENT = #{dispalcement,jdbcType=VARCHAR},
+      OIL_WEAR = #{oilWear,jdbcType=VARCHAR},
+      IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      LEVER = #{lever,jdbcType=VARCHAR},
+      SECOND_HAND_PICE = #{secondHandPice,jdbcType=VARCHAR},
+      INVENTORY = #{inventory,jdbcType=VARCHAR},
+      CAR_BRAND = #{carBrand,jdbcType=VARCHAR},
+      CAR_TYPE = #{carType,jdbcType=VARCHAR},
+      CART_ID = #{cartId,jdbcType=VARCHAR},
+      HOT = #{hot,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, DISCOUNTS, DEALER_QUOTATION, GUIDE_PRICE, DISPALCEMENT, OIL_WEAR, IMG_URL, 
+    LEVER, SECOND_HAND_PICE, INVENTORY, CAR_BRAND, CAR_TYPE, CART_ID, HOT
+    from c_car
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, DISCOUNTS, DEALER_QUOTATION, GUIDE_PRICE, DISPALCEMENT, OIL_WEAR, IMG_URL, 
+    LEVER, SECOND_HAND_PICE, INVENTORY, CAR_BRAND, CAR_TYPE, CART_ID, HOT
+    from c_car
+  </select>
+</mapper>
