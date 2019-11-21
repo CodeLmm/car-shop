@@ -80,4 +80,5 @@ public class UserContoller {
 		}
 		return userService.register(userParam);
 	}
+	
 }

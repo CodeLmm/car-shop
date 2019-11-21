@@ -50,6 +50,12 @@ public class CarServiceImpl implements CarService {
 	public Object findSalesVolumeCar() {
 		return new SuccessResult<>(carMapper.findSalesVolumeCar());
 	}
+
+	@Override
+	public Object carDetail(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	/**
 	 * 商品详情

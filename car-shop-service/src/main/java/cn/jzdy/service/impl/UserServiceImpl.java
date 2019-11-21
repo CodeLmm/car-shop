@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserServie {
 		}
 		//还没进行mp5加密
 		String passwordMd5 = MD5Util.digest(password);
+		//通过用户名  密码查找用户
 		User user = userMapper.findUserByUsernameAndPassword(username,passwordMd5);
 		String ticket = null;
 		LoginUser loginUser = null;
