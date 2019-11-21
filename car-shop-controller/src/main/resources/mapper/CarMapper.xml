@@ -35,4 +35,57 @@
 		cc.ID
 LIMIT 0,5
   </select>
+  <select id="carDetail" resultType="map">
+  	SELECT 
+		(SELECT d.`VALUE` from dict d WHERE d.`KEY` = c.CAR_BRAND AND d.SORT='CAR_BRAND') brand,
+		c.DEALER_QUOTATION,
+		c.DISCOUNTS,
+		c.DISPALCEMENT,
+		c.GUIDE_PRICE,
+		(CASE  WHEN c.HOT=1  THEN '热门' ELSE '冷门' END) IS_HOT,
+		c.ID,
+		c.IMG_URL,
+		c.INVENTORY,
+		c.LEVER,
+		c.`name`,
+		c.OIL_WEAR,
+		c.SECOND_HAND_PICE
+	FROM 
+	c_car c
+	WHERE c.ID = #{id}
+  </select>
+  <select id="findCountByCarBrank" resultType="long">
+  	SELECT 
+		COUNT(c.ID)
+	FROM
+	c_car c
+	LEFT JOIN
+		dict d ON d.`KEY` = c.CAR_BRAND
+	<where>
+		 d.`VALUE` = #{carBrankSelectDto.carBrand}
+	</where>
+  </select>
+  <select id="findCarListByCarBrank" resultType="map">
+  	SELECT 
+		d.`VALUE` brank,
+		c.DEALER_QUOTATION,
+		c.DISCOUNTS,
+		c.DISPALCEMENT,
+		c.GUIDE_PRICE,
+		(CASE  WHEN c.HOT=1  THEN '热门' ELSE '冷门' END) IS_HOT,
+		c.ID,
+		c.IMG_URL,
+		c.INVENTORY,
+		c.LEVER,
+		c.`name`,
+		c.OIL_WEAR,
+		c.SECOND_HAND_PICE
+	FROM 
+	c_car c
+	LEFT JOIN dict d ON c.CAR_BRAND = d.`KEY`
+	<where>
+		 d.`VALUE` = #{carBrankSelectDto.carBrand}
+	</where>
+	LIMIT #{carBrankSelectDto.countPageStart},#{carBrankSelectDto.pageTotal}
+  </select>
 </mapper>

@@ -2,14 +2,17 @@ package cn.jzdy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.jzdy.annotation.aop.NoCheckOnline;
+import cn.jzdy.dto.CarBrankSelectDto;
 import cn.jzdy.service.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(tags = "商品模块")
 @RestController
@@ -58,5 +61,39 @@ public class CarController {
 	public Object findSalesVolumeCar() {
 		return carService.findSalesVolumeCar();
 	}
+	
+	/**
+	 * 车辆详情
+	 * authod lujingdong
+	 * 2019年11月21日
+	 * @param carType
+	 * @return
+	 */
+	@NoCheckOnline
+	@ApiOperation(value = "商品详情", notes = "商品详情")
+	@ApiImplicitParam(name = "id", value = "商品id", paramType = "id")
+	@PostMapping("carDetail")
+	public Object carDetail(String id) {
+		return carService.carDetail(id);
+	}
+	
+	/**
+	 * 分页，根据车的品牌进行分页查询
+	 * authod lujingdong
+	 * 2019年11月21日
+	 * @param carType
+	 * @return
+	 */
+	@NoCheckOnline
+	@ApiOperation(value = "分页，根据车的品牌进行分页查询", notes = "分页，根据车的品牌进行分页查询")
+	@ApiImplicitParam(name = "id", value = "商品id", paramType = "id")
+	@PostMapping("findListByCarBrank")
+	public Object findListarBrank(
+			@RequestBody
+			@ApiParam(name="carBrankSelectDto",value="页面传来的参数实体",required = true)
+			CarBrankSelectDto carBrankSelectDto) {
+		return carService.findListByCarBrank(carBrankSelectDto);
+	}
+	
 	
 }
