@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.jzdy.dao.CarMapper;
 import cn.jzdy.dto.CarBrankSelectDto;
+import cn.jzdy.dto.CarSelectDto;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.CarService;
 @Service
@@ -70,15 +71,16 @@ public class CarServiceImpl implements CarService {
 	 * @param carType
 	 * @return
 	 */
+
 	@Override
-	public Object findListByCarBrank(CarBrankSelectDto carBrankSelectDto) {
+	public Object findListByCarBrank(CarSelectDto carSelectDto) {
 		//初始化页的参数
-		carBrankSelectDto.init();
+		carSelectDto.init();
 		//查询总数
-		Long count = carMapper.findCountByCarBrank(carBrankSelectDto);
+		Long count = carMapper.findCountByCarBrank(carSelectDto);
 		//查询数据
-		List<Map<String,Object>> catList = carMapper.findCarListByCarBrank(carBrankSelectDto);
-		return new SuccessResult<>(carBrankSelectDto.pageResponse(catList, count));
+		List<Map<String,Object>> catList = carMapper.findCarListByCarBrank(carSelectDto);
+		return new SuccessResult<>(carSelectDto.pageResponse(catList, count));
 	}
 	
 }
