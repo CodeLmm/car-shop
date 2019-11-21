@@ -2,11 +2,14 @@ package cn.jzdy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.jzdy.annotation.aop.NoCheckOnline;
 import cn.jzdy.login.LoginUser;
+import cn.jzdy.request_param.UserParam;
+import cn.jzdy.response.ErrorResult;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.security.SecurityUser;
 import cn.jzdy.service.UserServie;
@@ -19,6 +22,7 @@ import io.swagger.annotations.ApiImplicitParam;
  */
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 @Api(tags = "用户模块")
 @RestController
 @RequestMapping("user")
@@ -57,4 +61,23 @@ public class UserContoller {
 		return new SuccessResult<>(loginUser.getUser());
 	}
 	
+	/**
+	 *  用户注册
+	* @author:yiwu
+	* @Description:
+	* @param userParam
+	* @return    
+	* Object:
+	 */
+	@NoCheckOnline
+	@ApiOperation(value = "用户注册", notes = "用户注册")
+	@PostMapping("register")
+	public Object register(@RequestBody 
+			@ApiParam(name="userParam",value="用户参数类型",required = true)
+			UserParam userParam) {
+		if(userParam == null) {
+			return new ErrorResult("user is null");
+		}
+		return userService.register(userParam);
+	}
 }

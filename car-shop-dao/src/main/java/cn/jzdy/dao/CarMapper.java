@@ -1,16 +1,19 @@
 package cn.jzdy.dao;
 
-import cn.jzdy.pojo.Car;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+
+@Mapper
 public interface CarMapper {
-    int deleteByPrimaryKey(String id);
 
-    int insert(Car record);
+	List<Map<String,Object>> findHotBrand();
 
-    Car selectByPrimaryKey(String id);
+	List<Map<String,Object>> findHotCar(@Param("carType")String carType);
 
-    List<Car> selectAll();
-
-    int updateByPrimaryKey(Car record);
+	List<Map<String,Object>> findSalesVolumeCar();
+   
 }

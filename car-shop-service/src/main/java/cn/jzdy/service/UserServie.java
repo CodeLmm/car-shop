@@ -1,5 +1,7 @@
 package cn.jzdy.service;
 
+import cn.jzdy.request_param.UserParam;
+
 public interface UserServie {
 	/**
 	 * 用户登陆
@@ -10,5 +12,15 @@ public interface UserServie {
 	 * @return
 	 */
 	Object login(String username, String password);
+	
+	/**
+	 * 	用户注册
+	* @author:yiwu
+	* @Description:
+	* @param userParam   用户参数
+	* @return    
+	* Object:
+	 */
+	 Object register(UserParam user);
 
 }

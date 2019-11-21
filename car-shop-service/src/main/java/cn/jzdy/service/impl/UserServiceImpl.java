@@ -1,5 +1,6 @@
 package cn.jzdy.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import cn.jzdy.dao.PermissionMapper;
 import cn.jzdy.dao.RoleMapper;
@@ -15,6 +17,7 @@ import cn.jzdy.login.LoginUser;
 import cn.jzdy.pojo.Permission;
 import cn.jzdy.pojo.Role;
 import cn.jzdy.pojo.User;
+import cn.jzdy.request_param.UserParam;
 import cn.jzdy.response.ErrorResult;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.RedisService;
@@ -74,4 +77,82 @@ public class UserServiceImpl implements UserServie {
 		return null;
 	}
 
+	/**
+	 * 	用户注册
+	* @author:yiwu
+	* @Description:
+	* @param userParam  用户参数
+	* @return
+	 */
+	@Override
+	public Object register(UserParam userParam) {
+		//数据校验
+		Object checkResult =  checkregisterParam(userParam);
+		if(checkResult != null) {
+			return checkResult;
+		}
+		
+		String phone = userParam.getPhone();
+		int count = userMapper.isUser(phone);
+		if(count > 0) {
+			return new ErrorResult<>("用户已注册过的", "您已注册过，请登陆", "denglu");
+		}
+		
+		User user = new User();
+		user.setCreateTime(new Date());
+		user.setId(UuidUtils.getUuid());
+		user.setUsername(userParam.getUsername());
+		String passwordMd5 = MD5Util.digest(userParam.getPassword());
+		user.setPassword(passwordMd5);
+		user.setMail(userParam.getMail());
+		user.setPhone(phone);
+		user.setStatus("1");
+		user.setName(userParam.getName());
+		user.setSex(userParam.getSex());
+		user.setAge(userParam.getAge());
+		user.setAddress(userParam.getAddress());
+		user.setUpdateTime(new Date());
+		
+		userMapper.insertUserRegister(user);
+		
+		
+		return new SuccessResult<>();
+	}
+	
+	/**
+	 * 	检查注册参数
+	* @author:yiwu
+	* @Description:
+	* @param userParam  用户参数
+	* @return    
+	* Object:
+	 */
+	private Object checkregisterParam(UserParam user) {
+		if (StringUtils.isEmpty (user.getUsername())) {
+			return new ErrorResult<>("username is null", "请填写您的用户名");
+		}
+		if (StringUtils.isEmpty (user.getPassword())) {
+			return new ErrorResult<>("password is null", "请填写您的密码");
+		}
+		if (StringUtils.isEmpty (user.getPhone())) {
+			return new ErrorResult<>("phone is null", "请填写您的手机号码");
+		}
+		if (StringUtils.isEmpty (user.getMail())) {
+			return new ErrorResult<>("email is null", "请填写您的邮箱");
+		}
+		if (StringUtils.isEmpty (user.getName())) {
+			return new ErrorResult<>("name is null", "请填写您的姓名");
+		}
+		if (StringUtils.isEmpty (user.getSex())) {
+			return new ErrorResult<>("sex is null", "请填写您的性别");
+		}
+		if (StringUtils.isEmpty (user.getAge())) {
+			return new ErrorResult<>("age is null", "请填写您的年龄");
+		}
+		if (StringUtils.isEmpty (user.getAddress())) {
+			return new ErrorResult<>("address is null", "请填写您的地址");
+		}
+		return null;
+	}
+	
 }

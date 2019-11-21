@@ -21,4 +21,31 @@
 	WHERE u.USERNAME = #{username}
 	AND u.`PASSWORD` = #{password}
   </select>
+  
+   <!-- 插入用户注册信息 -->
+  <insert id="insertUserRegister" parameterType="user">
+  	INSERT INTO u_user 
+  		VALUES(#{user.id},
+  			   #{user.username},
+  			   #{user.password},
+  			   #{user.mail},
+  			   #{user.phone},
+  			   #{user.createTime},
+  			   #{user.updateTime},
+  			   #{user.status},
+  			   #{user.name},
+  			   #{user.sex},
+  			   #{user.age},
+  			   #{user.address})
+  </insert>
+  <!-- 判断是否是已注册的用户 -->
+  <select id="isUser" resultType="int">
+  	SELECT
+  		COUNT(phone)
+  	FROM
+  		u_user
+  	WHERE 
+  		phone = #{phone}		  
+  </select>
+  
 </mapper>
