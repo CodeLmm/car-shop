@@ -1,10 +1,14 @@
 package cn.jzdy.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.jzdy.dao.CarMapper;
+import cn.jzdy.dto.CarBrankSelectDto;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.CarService;
 @Service
@@ -44,6 +48,37 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public Object findSalesVolumeCar() {
 		return new SuccessResult<>(carMapper.findSalesVolumeCar());
+	}
+	
+	/**
+	 * 商品详情
+	 * authod lujingdong
+	 * 2019年11月21日
+	 * @param carType
+	 * @return
+	 */
+	@Override
+	public Object carDetail(String id) {
+		return new SuccessResult<>(carMapper.carDetail(id));
+	}
+
+	
+	/**
+	 * 分页，根据车的品牌进行分页查询
+	 * authod lujingdong
+	 * 2019年11月21日
+	 * @param carType
+	 * @return
+	 */
+	@Override
+	public Object findListByCarBrank(CarBrankSelectDto carBrankSelectDto) {
+		//初始化页的参数
+		carBrankSelectDto.init();
+		//查询总数
+		Long count = carMapper.findCountByCarBrank(carBrankSelectDto);
+		//查询数据
+		List<Map<String,Object>> catList = carMapper.findCarListByCarBrank(carBrankSelectDto);
+		return new SuccessResult<>(carBrankSelectDto.pageResponse(catList, count));
 	}
 	
 }
