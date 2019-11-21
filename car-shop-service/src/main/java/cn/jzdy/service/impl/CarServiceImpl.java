@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.jzdy.dao.CarMapper;
-import cn.jzdy.dto.CarBrankSelectDto;
 import cn.jzdy.dto.CarSelectDto;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.CarService;
@@ -51,11 +50,6 @@ public class CarServiceImpl implements CarService {
 		return new SuccessResult<>(carMapper.findSalesVolumeCar());
 	}
 
-	@Override
-	public Object carDetail(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	/**
 	 * 商品详情
