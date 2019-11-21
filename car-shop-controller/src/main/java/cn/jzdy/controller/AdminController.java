@@ -23,7 +23,6 @@ public class AdminController {
 	private AdminService adminService;
 	
 	
-	
 	@NoCheckOnline
 	@ApiOperation(value = "查询用户列表", notes = "查询用户列表")
 	@PostMapping("countUserList")
@@ -35,7 +34,13 @@ public class AdminController {
 			}
 		  Object countUserList = adminService.countUserList(userDto);
 		  return countUserList;
-		
+	}
+	
+	public Object deleteUser(String userId) {
+		if(StringUtils.isEmpty(userId)) {
+			return new ErrorResult<>("userId is null");
+		}
+		return "";
 	}
 
 }
