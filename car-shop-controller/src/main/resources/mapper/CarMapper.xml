@@ -61,7 +61,9 @@ LIMIT 0,5
 	c_car c
 	LEFT JOIN
 		dict d ON d.`KEY` = c.CAR_BRAND
-	<include refid="where"></include>
+	<where>
+		 d.`VALUE` = #{carBrankSelectDto.carBrand}
+	</where>
   </select>
   <select id="findCarListByCarBrank" resultType="map">
   	SELECT 
@@ -81,17 +83,9 @@ LIMIT 0,5
 	FROM 
 	c_car c
 	LEFT JOIN dict d ON c.CAR_BRAND = d.`KEY`
-	<include refid="where"></include>
-	LIMIT #{carSelectDto.countPageStart},#{carSelectDto.pageTotal}
-  </select>
-  <sql id="where">
-  	<where>
-		<if test="carSelectDto.carBrand!=null and carSelectDto.carBrand!=''">
-			 and d.`VALUE` = #{carSelectDto.carBrand}
-		</if>
-		<if test="carSelectDto.name!=null and carSelectDto.name!=''">
-			 and c.`name` = #{carSelectDto.name}
-		</if>
+	<where>
+		 d.`VALUE` = #{carBrankSelectDto.carBrand}
 	</where>
-  </sql>
+	LIMIT #{carBrankSelectDto.countPageStart},#{carBrankSelectDto.pageTotal}
+  </select>
 </mapper>

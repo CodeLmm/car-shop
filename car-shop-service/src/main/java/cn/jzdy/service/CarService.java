@@ -1,6 +1,6 @@
 package cn.jzdy.service;
 
-import cn.jzdy.dto.CarSelectDto;
+import cn.jzdy.dto.CarBrankSelectDto;
 
 public interface CarService {
 	
@@ -12,6 +12,7 @@ public interface CarService {
 
 	Object carDetail(String id);
 
-	Object findListByCarBrank(CarSelectDto carSelectDto);
+
+	Object findListByCarBrank(CarBrankSelectDto carBrankSelectDto);
 
 }

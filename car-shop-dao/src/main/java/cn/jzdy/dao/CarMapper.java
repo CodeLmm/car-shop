@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import cn.jzdy.dto.CarBrankSelectDto;
-import cn.jzdy.dto.CarSelectDto;
 
 
 @Mapper
@@ -21,8 +20,8 @@ public interface CarMapper {
 
 	Map<String,Object> carDetail(String id);
 
-	Long findCountByCarBrank(@Param("carSelectDto")CarSelectDto carSelectDto);
+	Long findCountByCarBrank(@Param("carBrankSelectDto")CarBrankSelectDto carBrankSelectDto);
 
-	List<Map<String, Object>> findCarListByCarBrank(@Param("carSelectDto")CarSelectDto carSelectDto);
+	List<Map<String, Object>> findCarListByCarBrank(@Param("carBrankSelectDto")CarBrankSelectDto carBrankSelectDto);
    
 }

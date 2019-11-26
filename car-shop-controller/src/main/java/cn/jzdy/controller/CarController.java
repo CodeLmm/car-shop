@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.jzdy.annotation.aop.NoCheckOnline;
 import cn.jzdy.dto.CarBrankSelectDto;
-import cn.jzdy.dto.CarSelectDto;
 import cn.jzdy.service.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -86,18 +84,16 @@ public class CarController {
 	 * @param carType
 	 * @return
 	 */
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
-	})
+	@NoCheckOnline
 	@ApiOperation(value = "分页，根据车的品牌进行分页查询", notes = "分页，根据车的品牌进行分页查询")
+	@ApiImplicitParam(name = "id", value = "商品id", paramType = "id")
 	@PostMapping("findListByCarBrank")
 	public Object findListarBrank(
 			@RequestBody
-			@ApiParam(name="CarSelectDto",value="页面传来的参数实体",required = true)
-			CarSelectDto carSelectDto) {
-		return carService.findListByCarBrank(carSelectDto);
+			@ApiParam(name="carBrankSelectDto",value="页面传来的参数实体",required = true)
+			CarBrankSelectDto carBrankSelectDto) {
+		return carService.findListByCarBrank(carBrankSelectDto);
 	}
-	
 	
 	
 }

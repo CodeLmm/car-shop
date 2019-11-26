@@ -69,6 +69,7 @@ public class UserContoller {
 	* @return    
 	* Object:
 	 */
+	@SuppressWarnings("all")
 	@NoCheckOnline
 	@ApiOperation(value = "用户注册", notes = "用户注册")
 	@PostMapping("register")
