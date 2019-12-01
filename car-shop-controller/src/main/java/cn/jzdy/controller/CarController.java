@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.jzdy.annotation.aop.NoCheckOnline;
-import cn.jzdy.dto.CarBrankSelectDto;
+import cn.jzdy.dto.CarSelectDto;
+import cn.jzdy.request_param.CarParam;
 import cn.jzdy.service.CarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -84,16 +88,75 @@ public class CarController {
 	 * @param carType
 	 * @return
 	 */
-	@NoCheckOnline
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
 	@ApiOperation(value = "分页，根据车的品牌进行分页查询", notes = "分页，根据车的品牌进行分页查询")
-	@ApiImplicitParam(name = "id", value = "商品id", paramType = "id")
 	@PostMapping("findListByCarBrank")
 	public Object findListarBrank(
 			@RequestBody
-			@ApiParam(name="carBrankSelectDto",value="页面传来的参数实体",required = true)
-			CarBrankSelectDto carBrankSelectDto) {
-		return carService.findListByCarBrank(carBrankSelectDto);
+			@ApiParam(name="CarSelectDto",value="页面传来的参数实体",required = true)
+			CarSelectDto carSelectDto) {
+		return carService.findListByCarBrank(carSelectDto);
 	}
 	
+	/**
+	 * 商品（车辆）的删除
+	 * authod lujingdong
+	 * 2019年11月23日
+	 * @param id
+	 * @return
+	 */
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
+	@ApiOperation(value = "商品（车辆）的删除", notes = "商品（车辆）的删除")
+	@PostMapping("deleteCar")
+	public Object deleteCar(String id) {
+		return carService.deleteCar(id);
+	}
+	/**
+	 * 查寻所有车的品牌
+	 * authod lujingdong
+	 * 2019年11月23日
+	 * @return
+	 */
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
+	@ApiOperation(value = "查寻所有车的品牌", notes = "查寻所有车的品牌")
+	@PostMapping("selectAllBrank")
+	public Object selectAllBrank() {
+		return carService.selectAllBrank();
+	}
+	/**
+	 * 添加商品（车）
+	 * authod lujingdong
+	 * 2019年11月23日
+	 * @return
+	 */
+	@PostMapping("addCar")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
+	@ApiOperation(value = "添加车辆（商品）", notes = "添加车辆（商品）")
+	public Object addCar(
+			@RequestParam(value = "file") MultipartFile file,
+			@ApiParam(name = "carParam", value = "车辆添加参数实体", required = true)  CarParam carParam
+			) {
+			return carService.addCar(carParam,file);
+	}
+	
+	@PostMapping("updateCar")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+	})
+	@ApiOperation(value = "修改车辆（商品）", notes = "修改车辆（商品）")
+	public Object updateCar(
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@ApiParam(name = "carParam", value = "车辆添加参数实体", required = true)  CarParam carParam
+			) {
+			return carService.updateCar(carParam,file);
+	}
 	
 }
