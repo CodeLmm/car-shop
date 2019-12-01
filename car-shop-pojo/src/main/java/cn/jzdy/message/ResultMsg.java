@@ -30,5 +30,4 @@ public interface ResultMsg {
 	public static final String IMPORT_SUCCESS = "导入成功";
 	/** 导入失败*/
 	public static final String IMPORT_ERROR = "导入失败";
-	
 }

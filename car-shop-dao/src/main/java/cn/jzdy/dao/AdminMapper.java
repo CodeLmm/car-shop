@@ -7,8 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import cn.jzdy.dto.UserDto;
+<<<<<<< HEAD
 import cn.jzdy.pojo.User;
 import cn.jzdy.request_param.UserParam;
+=======
+>>>>>>> branch 'master' of https://github.com/CodeLmm/car-shop.git
 
 @Mapper
 public interface AdminMapper {
@@ -22,15 +25,9 @@ public interface AdminMapper {
 	 */
 	long countUser(@Param("userDto")UserDto userDto );
 	
-	/**
-	 * 
-	* @author:yiwu
-	* @Description: 查询用户列表
-	* @param userDto
-	* @return    
-	* List<Map<String,Object>>:
-	 */
+	
 	List<Map<String,Object>> countUserList(@Param("userDto") UserDto userDto);
+
 	
 	
 	/**
@@ -56,4 +53,5 @@ public interface AdminMapper {
 	
 	
 	Integer updateUser(@Param ("userParam") UserParam userParam ,@Param("userId") String userId);
+
 }

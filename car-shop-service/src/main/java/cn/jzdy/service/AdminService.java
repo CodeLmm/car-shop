@@ -2,8 +2,6 @@ package cn.jzdy.service;
 
 
 import cn.jzdy.dto.UserDto;
-import cn.jzdy.pojo.User;
-import cn.jzdy.request_param.UserParam;
 
 
 public interface AdminService {
@@ -18,6 +16,7 @@ public interface AdminService {
 	 */
 	Object countUserList(UserDto userDto);
 	
+
 	
 	/**
 	 * 
@@ -60,4 +59,5 @@ public interface AdminService {
 	 */
 	Object updateUser(UserParam userParam ,String userId);
 	
+
 }
