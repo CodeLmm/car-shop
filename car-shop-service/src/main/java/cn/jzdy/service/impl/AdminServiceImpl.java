@@ -1,14 +1,25 @@
 package cn.jzdy.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import cn.jzdy.dao.AdminMapper;
+import cn.jzdy.dao.UserMapper;
 import cn.jzdy.dto.UserDto;
+import cn.jzdy.message.ResultMsg;
+import cn.jzdy.pojo.User;
+import cn.jzdy.request_param.UserParam;
+import cn.jzdy.response.ErrorResult;
 import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.AdminService;
+import cn.jzdy.util.MD5Util;
+import cn.jzdy.util.id.UuidUtils;
 
 
 @Service
@@ -16,6 +27,8 @@ import cn.jzdy.service.AdminService;
 public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminMapper adminMapper;
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public Object countUserList(UserDto userDto) {
@@ -158,6 +171,9 @@ public class AdminServiceImpl implements AdminService{
 		Integer count = adminMapper.updateUser(userParam,userId);
 		return new SuccessResult<>(ResultMsg.UPDATE_SUCCESS);
 	}
+
+
+	
 	
 	
 	

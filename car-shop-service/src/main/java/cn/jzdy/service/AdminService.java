@@ -2,6 +2,7 @@ package cn.jzdy.service;
 
 
 import cn.jzdy.dto.UserDto;
+import cn.jzdy.request_param.UserParam;
 
 
 public interface AdminService {

@@ -7,11 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import cn.jzdy.dto.UserDto;
-<<<<<<< HEAD
 import cn.jzdy.pojo.User;
 import cn.jzdy.request_param.UserParam;
-=======
->>>>>>> branch 'master' of https://github.com/CodeLmm/car-shop.git
 
 @Mapper
 public interface AdminMapper {
