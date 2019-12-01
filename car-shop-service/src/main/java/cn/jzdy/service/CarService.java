@@ -1,6 +1,9 @@
 package cn.jzdy.service;
 
-import cn.jzdy.dto.CarBrankSelectDto;
+import org.springframework.web.multipart.MultipartFile;
+
+import cn.jzdy.dto.CarSelectDto;
+import cn.jzdy.request_param.CarParam;
 
 public interface CarService {
 	
@@ -12,7 +15,14 @@ public interface CarService {
 
 	Object carDetail(String id);
 
+	Object findListByCarBrank(CarSelectDto carSelectDto);
 
-	Object findListByCarBrank(CarBrankSelectDto carBrankSelectDto);
+	Object deleteCar(String id);
+
+	Object selectAllBrank();
+
+	Object addCar(CarParam carParam, MultipartFile file);
+
+	Object updateCar(CarParam carParam, MultipartFile file);
 
 }
