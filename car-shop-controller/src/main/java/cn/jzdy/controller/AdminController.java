@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import cn.jzdy.annotation.aop.NoCheckOnline;
 import cn.jzdy.dto.UserDto;
-import cn.jzdy.pojo.User;
 import cn.jzdy.request_param.UserParam;
 import cn.jzdy.response.ErrorResult;
-import cn.jzdy.response.SuccessResult;
 import cn.jzdy.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -101,8 +98,21 @@ public class AdminController {
 			return new ErrorResult<>("userId is null");
 		}
 		return adminService.selectUserByUserId(userId);
-		
 	}
 	
-
+	@ApiOperation(value = "修改用户", notes = "修改用户")
+	@PostMapping("updateUser")
+	@ApiImplicitParams({
+		  @ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
+		 })
+	public Object updateUser( @RequestBody UserParam userParam , String userId) {
+		if(StringUtils.isEmpty(userParam)) {
+			new ErrorResult<>("userParam is null");
+		}
+		if(StringUtils.isEmpty(userId)) {
+			new ErrorResult<>("userId is null");
+		}
+		return adminService.updateUser(userParam,userId);
+	}
+	
 }

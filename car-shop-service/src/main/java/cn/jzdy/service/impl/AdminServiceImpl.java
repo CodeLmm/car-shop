@@ -3,7 +3,6 @@ package cn.jzdy.service.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
 
 		userMapper.insertUserRegister(user);
 
-		return new SuccessResult<>("您已成功添加用户");
+		return new SuccessResult<>(ResultMsg.ADD_SUCCESS);
 	}
 
 	/**
@@ -158,4 +157,35 @@ public class AdminServiceImpl implements AdminService {
 		return new SuccessResult<>(user);
 	}
 
+	@Override
+	public Object updateUser(UserParam userParam,String userId) {
+		//数据校验
+		Object checkResult = checkregisterParam(userParam);
+		if (checkResult != null) {
+			return checkResult;
+		}
+		String passwordMD = MD5Util.digest(userParam.getPassword());
+		userParam.setPassword(passwordMD);
+		User user = adminMapper.selectUserByUserId(userId);
+		if (user == null) {
+			return new ErrorResult<>("该用户不存在");
+		}
+		Integer count = adminMapper.updateUser(userParam,userId);
+		return new SuccessResult<>(ResultMsg.UPDATE_SUCCESS);
+	}
+	
+	
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+

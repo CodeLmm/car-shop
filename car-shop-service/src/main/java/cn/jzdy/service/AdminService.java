@@ -49,4 +49,15 @@ public interface AdminService {
 	 */
 	Object selectUserByUserId(String userId);
 	
+	
+	/**
+	 * 
+	* @author:yiwu
+	* @Description:   修改用户
+	* @param userParam
+	* @return    
+	* Object:
+	 */
+	Object updateUser(UserParam userParam ,String userId);
+	
 }

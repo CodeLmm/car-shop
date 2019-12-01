@@ -2,6 +2,7 @@ package cn.jzdy.response;
 
 
 
+import java.awt.List;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
@@ -33,6 +34,9 @@ public class Result<T> implements Serializable{
 	@ApiModelProperty(
 			"响应状态(只有两个状态success/error)")
 	private String status;
+	@ApiModelProperty(
+			"返回数据")
+	private List List;
 	@ApiModelProperty(
 			"弹窗消息(没有数据则不需要弹窗)")
 	private String message;
@@ -84,6 +88,14 @@ public class Result<T> implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List getList() {
+		return List;
+	}
+
+	public void setList(List list) {
+		List = list;
 	}
 	
 	

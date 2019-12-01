@@ -2,6 +2,8 @@ package cn.jzdy.response;
 
 
 
+import java.awt.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -21,6 +23,15 @@ public class SuccessResult<T> extends Result<T> {
 	 * 成功
 	 */
 	public SuccessResult() {
+	}
+	
+	
+	
+	/**
+	 * 成功 +返回数据
+	 */
+	public SuccessResult(List list) {
+		setList(list);
 	}
 
 	/**

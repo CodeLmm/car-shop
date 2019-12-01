@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import cn.jzdy.dto.UserDto;
 import cn.jzdy.pojo.User;
+import cn.jzdy.request_param.UserParam;
 
 @Mapper
 public interface AdminMapper {
@@ -51,4 +52,8 @@ public interface AdminMapper {
 	* int:
 	 */
 	Integer updateStauts(@Param("userId") String userId);
+	
+	
+	
+	Integer updateUser(@Param ("userParam") UserParam userParam ,@Param("userId") String userId);
 }
