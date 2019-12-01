@@ -92,10 +92,11 @@ public class UserServiceImpl implements UserServie {
 		if(checkResult != null) {
 			return checkResult;
 		}
+		
 		String phone = userParam.getPhone();
 		int count = userMapper.isUser(phone);
 		if(count > 0) {
-			return new ErrorResult<>("您已注册过了账号", "您已注册过，请登陆", "登陆页面");
+			return new ErrorResult<>("用户已注册过的", "您已注册过，请登陆", "denglu");
 		}
 		
 		User user = new User();

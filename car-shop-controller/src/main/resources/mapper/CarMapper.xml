@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jzdy.dao.CarMapper">
+	<update id="updateCar">
+		UPDATE
+			c_car
+		<set>
+			<if test="carParam.discounts!=null and carParam.discounts=''">DISCOUNTS = #{carParam.discounts},</if>
+		 	<if test="carParam.dealerQuotation!=null and carParam.dealerQuotation=''">DEALER_QUOTATION = #{carParam.dealerQuotation},</if>
+		 	<if test="carParam.guidePrice!=null and carParam.guidePrice=''">GUIDE_PRICE = #{carParam.guidePrice},</if>
+		 	<if test="carParam.dispalcement!=null and carParam.dispalcement=''">DISPALCEMENT = #{carParam.dispalcement},</if>
+		 	<if test="carParam.oilWear!=null and carParam.oilWear=''">OIL_WEAR = #{carParam.oilWear},</if>
+		 	<if test="carParam.imgUrl!=null and carParam.imgUrl=''">IMG_URL = #{carParam.imgUrl},</if>
+		 	<if test="carParam.lever!=null and carParam.lever=''">LEVER = #{carParam.lever},</if>
+		 	<if test="carParam.secondHandPice!=null and carParam.secondHandPice=''">SECOND_HAND_PICE = #{carParam.secondHandPice},</if>
+		 	<if test="carParam.inventory!=null and carParam.inventory=''">INVENTORY = #{carParam.inventory},</if>
+		 	<if test="carParam.carBrandKey!=null and carParam.carBrandKey=''">CAR_BRAND = #{carParam.carBrandKey},</if>
+		 	<if test="carParam.hot!=null">HOT = #{carParam.hot},</if>
+		 	<if test="carParam.name!=null and carParam.name=''">NAME = #{carParam.name},</if>
+		 	<if test="carParam.status!=null">STATUS = #{carParam.status}</if>
+		 </set>
+		WHERE ID = #{carParam.id}
+	</update>
+	<insert id="addCar">
+		INSERT INTO c_car (
+			ID,
+			DISCOUNTS,
+			DEALER_QUOTATION,
+			GUIDE_PRICE,
+			DISPALCEMENT,
+			OIL_WEAR,
+			IMG_URL,
+			LEVER,
+			SECOND_HAND_PICE,
+			INVENTORY,
+			CAR_BRAND,
+			HOT,
+			NAME,
+			STATUS
+		)
+		VALUES
+			(#{carParam.id}, #{carParam.discounts},
+			#{carParam.dealerQuotation},
+			#{carParam.guidePrice},#{carParam.dispalcement},
+			#{carParam.oilWear},#{carParam.imgUrl},
+			#{carParam.lever},#{carParam.secondHandPice},
+			#{carParam.inventory},#{carParam.carBrandKey},
+			#{carParam.hot},#{carParam.name},#{carParam.status})
+	</insert>
   <select id="findHotBrand" resultType="map">
   	SELECT
 		d.`VALUE`,
@@ -61,9 +107,7 @@ LIMIT 0,5
 	c_car c
 	LEFT JOIN
 		dict d ON d.`KEY` = c.CAR_BRAND
-	<where>
-		 d.`VALUE` = #{carBrankSelectDto.carBrand}
-	</where>
+	<include refid="where"></include>
   </select>
   <select id="findCarListByCarBrank" resultType="map">
   	SELECT 
@@ -83,9 +127,17 @@ LIMIT 0,5
 	FROM 
 	c_car c
 	LEFT JOIN dict d ON c.CAR_BRAND = d.`KEY`
-	<where>
-		 d.`VALUE` = #{carBrankSelectDto.carBrand}
-	</where>
-	LIMIT #{carBrankSelectDto.countPageStart},#{carBrankSelectDto.pageTotal}
+	<include refid="where"></include>
+	LIMIT #{carSelectDto.countPageStart},#{carSelectDto.pageTotal}
   </select>
+  <sql id="where">
+  	<where>
+		<if test="carSelectDto.carBrand!=null and carSelectDto.carBrand!=''">
+			 and d.`VALUE` = #{carSelectDto.carBrand}
+		</if>
+		<if test="carSelectDto.name!=null and carSelectDto.name!=''">
+			 and c.`name` = #{carSelectDto.name}
+		</if>
+	</where>
+  </sql>
 </mapper>

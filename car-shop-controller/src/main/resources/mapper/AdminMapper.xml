@@ -23,26 +23,6 @@
   </select>
   
   
-  <!-- 查询用户 -->
-  <select id="selectUserByUserId" resultType="User">
-  		SELECT
-  			*
-  		FROM
-  			u_user
-  		WHERE id = #{userId}
-  </select>
-  
-  
-  
-   <!-- 更新status -->
-  <select id="updateStauts" resultType="int">
-  		UPDATE
-  			u_user
-  		SET status = 2
-  		WHERE id = #{userId}
-  </select>
-  
-  
 </mapper>
 
 
