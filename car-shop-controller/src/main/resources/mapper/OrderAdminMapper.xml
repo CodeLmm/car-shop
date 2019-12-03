@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jzdy.dao.OrderAdminMapper">
+	<select id="findOrderListCount" resultType="long">
+		SELECT COUNT(o.ID) FROM o_order o 
+		<where><include refid="OrderListWhere" /></where>
+	</select>
+	<sql id="OrderListWhere">
+		<if test="orderAdminDto.orderNumber!=null and orderAdminDto.orderNumber!=''">
+			and ORDER_NUMBER = #{orderAdminDto.orderNumber}
+		</if>
+		<if test="orderAdminDto.carId!=null and orderAdminDto.carId!=''">
+			and CAR_ID = #{orderAdminDto.carId}
+		</if>
+		<if test="orderAdminDto.userId!=null and orderAdminDto.userId!=''">
+			and USER_ID = #{orderAdminDto.userId}
+		</if>
+	</sql>
+	<select id="findOrderList" resultType="map">
+		SELECT
+			o.ADDRESS,
+			o.CAR_ID,
+			o.CONSIGNEE,
+			o.ID,
+			o.`NAME`,
+			o.NUMBER,
+			o.ORDER_NUMBER,
+			o.PHONE,
+			(CASE WHEN o.SEND_STATUS=1 THEN '已发送' ELSE '未发送' END) SEND_STATUS,
+			o.TOTAL_MONEY,
+			(SELECT u.USERNAME FROM u_user u WHERE u.ID=o.USER_ID) USERNAME
+		FROM
+			o_order o
+		<where><include refid="OrderListWhere" /></where>
+		LIMIT #{orderAdminDto.countPageStart},#{orderAdminDto.pageTotal}
+	</select>
+	<select id="findOrderDetailById" resultType="map">
+		SELECT
+			o.ADDRESS,
+			o.CAR_ID,
+			o.CONSIGNEE,
+			o.ID,
+			o.`NAME`,
+			o.NUMBER,
+			o.ORDER_NUMBER,
+			o.PHONE,
+			(CASE WHEN o.SEND_STATUS=1 THEN '已发送' ELSE '未发送' END) SEND_STATUS,
+			o.TOTAL_MONEY,
+			(SELECT u.USERNAME FROM u_user u WHERE u.ID=o.USER_ID) USERNAME
+		FROM
+			o_order o
+		WHERE o.ID = #{id}
+	</select>
+</mapper>

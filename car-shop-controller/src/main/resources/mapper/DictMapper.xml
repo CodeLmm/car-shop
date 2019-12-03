@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jzdy.dao.DictMapper">
- 
+ 	<update id="updateDictRecordById">
+ 		UPDATE dict
+ 		<set>
+ 			<if test="dictParam.value!=null and dictParam.value!=''">
+ 				`VALUE`=#{dictParam.value},
+ 			</if>
+ 			<if test="dictParam.imageUrl!=null and dictParam.imageUrl!=''">
+ 				IMAGE_URL=#{dictParam.imageUrl}
+ 			</if>
+ 		</set>
+ 		WHERE ID=#{dictParam.id}
+ 	</update>
 </mapper>
