@@ -2,13 +2,15 @@ package cn.jzdy.pojo;
 
 import java.util.Date;
 
-public class UserShoppingCart {
+import io.swagger.annotations.ApiModelProperty;
+
+public class UserShoppingCart {  
     private String id;
-
+    @ApiModelProperty(value="用户Id",name="userId",required=true)
     private String userId;
-
+    @ApiModelProperty(value="数量",name="quantity",required=true)
     private String quantity;
-
+    @ApiModelProperty(value="车子id",name="carId",required=true)
     private String carId;
 
     private Date createtime;
