@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jzdy.dao.ShopCartMapper">
+
+	<select id="existUser" resultType="Integer">
+		SELECT
+		CASE
+			WHEN
+		count( id ) > 0 THEN
+			1 ELSE 0 
+		END AS count 
+			FROM
+		u_user 
+			WHERE
+		id = #{userId}
+	</select>
+
+							
+	<insert id="addShopCar" parameterType="UserShoppingCart"> 
+		INSERT 
+			INTO  
+		u_cart 
+			VALUES (
+		 #{userShoppingCart.id},
+		 #{userShoppingCart.userId},
+		 #{userShoppingCart.quantity},
+		 #{userShoppingCart.carId},
+		 #{userShoppingCart.createtime},
+		 #{userShoppingCart.updatetime}
+		 )
+	</insert>
+	
+	<select id="existShopCar" resultType="Map">
+		SELECT
+		CASE
+			WHEN
+		count( id ) > 0 THEN
+			1 ELSE 0 
+		END AS count ,
+		id,
+		quantity AS num
+			FROM
+		u_cart
+			WHERE
+		user_Id = #{userId} AND
+		car_Id = #{carId}
+	</select>
+							   
+	<update id="updateShopCar" parameterType="UserShoppingCart">
+		UPDATE 
+			u_cart
+		SET QUANTITY = #{userShoppingCart.quantity},
+			UPDATETIME = #{userShoppingCart.updatetime}
+		WHERE Id = #{userShoppingCart.id} 
+	</update>
+	
+	<select id="showShopCar" resultType="map">
+		SELECT
+			car.DISCOUNTS,
+			car.DEALER_QUOTATION,
+			car.GUIDE_PRICE,
+			car.OIL_WEAR,
+			car.IMG_URL,
+			car.LEVER,
+			car.SECOND_HAND_PICE,
+			car.INVENTORY,
+			car.CAR_BRAND,
+			car.NAME,
+			shop.QUANTITY 
+		FROM
+			u_user
+		USER LEFT JOIN u_cart shop ON USER.ID = shop.USER_ID
+		LEFT JOIN c_car car ON car.id = shop.CAR_ID 
+			WHERE
+		USER.ID = #{userId}
+	</select>
+
+  
+</mapper>

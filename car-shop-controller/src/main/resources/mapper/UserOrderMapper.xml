@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jzdy.dao.UserOrderMapper">
+ 
+  <select id="selectUserByUserId" resultType="Integer">
+  		  SELECT
+			CASE	
+		  WHEN
+			COUNT( id ) > 0 
+			THEN 1 
+			ELSE 0 
+			END 
+		FROM
+			o_order 
+		WHERE
+			USER_ID = #{userId}
+  </select>
+  
+  <select id="selectOrderByUserId" resultType="map">
+  		SELECT
+			* 
+		FROM
+			o_order 
+		WHERE
+			USER_ID = #{userId}
+  
+  </select>
+  
+  <insert id="addUserOrder"  parameterType="order">
+  		Insert into o_order values(
+  			#{order.carId},
+  			#{order.id},
+  			#{order.name},
+  			#{order.userId},
+  			#{order.orderNumber},
+  			#{order.consignee},
+  			#{order.address},
+  			#{order.phone},
+  			#{order.number},
+  			#{order.sendStatus},
+  			#{order.totalMoney}
+  		)
+  </insert>
+  
+  
+  <select id="selectCarPriceByCarId" resultType="map">
+  		select
+			SUBSTRING_INDEX(GUIDE_PRICE,'-',1) AS 
+			min,
+			SUBSTRING_INDEX(GUIDE_PRICE,'-',-1) AS 
+			max
+			FROM 
+			c_car
+			WHERE ID = #{carId}
+  </select>
+  
+  <select id="existOrder" resultType="map">
+  	
+		SELECT
+			CASE	
+		WHEN
+			count( id ) > 0 THEN
+		1 ELSE 0 
+			END AS result,
+		number ,
+		id
+			FROM
+		o_order 
+			WHERE
+		USER_ID = #{userId}
+		AND CAR_ID = #{carId}			
+  </select>
+  
+  <update id="updateOrder" >
+  	UPDATE 
+  		o_order
+  	SET number = #{number}
+  	WHERE id = #{id}
+  </update>
+  
+</mapper>
+
