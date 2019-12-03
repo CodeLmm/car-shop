@@ -1,9 +1,9 @@
 package cn.jzdy.dao;
 
-import java.awt.List;
+import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import cn.jzdy.pojo.Order;
 
 @Mapper
@@ -27,7 +27,7 @@ public interface UserOrderMapper {
 	* @return    
 	* List:
 	 */
-	List  selectOrderByUserId(@Param("userId") String userId);
+	List<Map<String, Object>>  selectOrderByUserId(@Param("userId") String userId);
 	
 	/**
 	 * 
@@ -36,7 +36,7 @@ public interface UserOrderMapper {
 	* @param order    
 	* void:
 	 */
-	Integer addUserOrder(@Param("order") Order order);
+	void addUserOrder(@Param("order") Order order);
 	
 	/**
 	 * 
@@ -46,5 +46,26 @@ public interface UserOrderMapper {
 	* @return    
 	* Integer:
 	 */
-	Integer selectCarPriceByCarId(@Param("carId") String carId);
+	Map<String , Object> selectCarPriceByCarId(@Param("carId") String carId);
+	
+	/**
+	 * 
+	* @author:yiwu
+	* @Description: 根据用户id和carId查询 是否已存在此订单
+	* @param userId
+	* @param carId
+	* @return    
+	* Map<String,Object>:
+	 */
+	Map<String, Object> existOrder(@Param("userId") String userId,@Param("carId") String carId);
+	/**
+	 * 
+	* @author:yiwu
+	* @Description: 新增同用户  同类型商品的订单  只改数量
+	* @param id
+	* @param num
+	* @return    
+	* Integer:
+	 */
+	Integer updateOrder (@Param("id") String id,@Param("number") Integer number);
 }
