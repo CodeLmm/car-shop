@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class UserParam {
    
-	
+	//
     private String username;
 
     private String password;
