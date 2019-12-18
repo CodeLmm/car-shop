@@ -15,7 +15,7 @@ public class UserParam {
 
     private String phone;
 
-
+    private Integer status;
     private String name;
 
     private Integer sex;
@@ -49,8 +49,17 @@ public class UserParam {
     public void setMail(String mail) {
         this.mail = mail == null ? null : mail.trim();
     }
+    
 
-    public String getPhone() {
+    public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getPhone() {
         return phone;
     }
 

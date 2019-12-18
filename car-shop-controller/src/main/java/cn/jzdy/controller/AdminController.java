@@ -85,9 +85,6 @@ public class AdminController {
 		  @ApiImplicitParam(name = "userTicket", value = "用户凭证", paramType = "header", required = true)
 		 })
 	public Object updateUser( @RequestBody UserParam userParam , String userId) {
-		if(StringUtils.isEmpty(userParam)) {
-			new ErrorResult<>("userParam is null");
-		}
 		if(StringUtils.isEmpty(userId)) {
 			new ErrorResult<>("userId is null");
 		}

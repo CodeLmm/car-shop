@@ -75,6 +75,12 @@ public class UserServiceImpl implements UserServie {
 
 	private Object checkLoginParam(String username, String password) {
 		// TODO Auto-generated method stub
+		if(StringUtils.isEmpty(username)) {
+			return new ErrorResult<>("username is null");
+		}
+		if(StringUtils.isEmpty(password)) {
+			return new ErrorResult<>("password is null");
+		}
 		return null;
 	}
 

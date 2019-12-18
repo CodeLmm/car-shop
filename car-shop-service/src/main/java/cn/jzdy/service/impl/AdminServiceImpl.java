@@ -80,10 +80,10 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Object addUser(UserParam userParam) {
 		// 数据校验
-		Object checkResult = checkregisterParam(userParam);
-		if (checkResult != null) {
-			return checkResult;
-		}
+//		Object checkResult = checkregisterParam(userParam);
+//		if (checkResult != null) {
+//			return checkResult;
+//		}
 		String phone = userParam.getPhone();
 		int count = userMapper.isUser(phone);
 		if (count > 0) {
@@ -168,7 +168,7 @@ public class AdminServiceImpl implements AdminService{
 		if (user == null) {
 			return new ErrorResult<>("该用户不存在");
 		}
-		Integer count = adminMapper.updateUser(userParam,userId);
+		adminMapper.updateUser(userParam,userId);
 		return new SuccessResult<>(ResultMsg.UPDATE_SUCCESS);
 	}
 
