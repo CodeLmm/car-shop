@@ -48,4 +48,14 @@
   		phone = #{phone}		  
   </select>
   
+  
+  <update id="updateUser" parameterType="userParam">
+  	update
+  		u_user
+  	set mail = #{mail} ,
+  		phone = #{phone}
+  		where id = #{id}
+  </update>
+  
+  
 </mapper>

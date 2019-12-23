@@ -161,5 +161,14 @@ public class UserServiceImpl implements UserServie {
 		}
 		return null;
 	}
+
+	@Override
+	public Object personalCenter(UserParam userParam) {
+		if(StringUtils.isEmpty(userParam)) {
+			return new ErrorResult<>("userParam is null");
+		}
+		userMapper.updateUser(userParam);
+		return new SuccessResult<>("update is success");
+	}
 	
 }

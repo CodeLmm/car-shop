@@ -22,5 +22,15 @@ public interface UserServie {
 	* Object:
 	 */
 	 Object register(UserParam user);
+	 
+	 /**
+	  * 个人中心
+	 * @author:yiwu
+	 * @Description:
+	 * @param userid
+	 * @return    
+	 * Object:
+	  */
+	Object personalCenter(UserParam userParam);
 
 }
