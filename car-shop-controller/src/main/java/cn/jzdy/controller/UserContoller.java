@@ -81,4 +81,14 @@ public class UserContoller {
 		return userService.register(userParam);
 	}
 	
+	
+	@ApiOperation(value = "个人中心", notes = "个人中心")
+	@PostMapping("personalCenter")
+	public Object personalCenter(@RequestBody 
+			@ApiParam(name="userParam",value="用户参数类型",required = true)
+			UserParam UserParam) {
+		
+		return userService.personalCenter(UserParam);
+	}
+	
 }
