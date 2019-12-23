@@ -49,11 +49,11 @@
   </select>
   
   
-  <update id="updateUser" parameterType="userParam">
+  <update id="updateUser">
   	update
   		u_user
-  	set mail = #{mail} ,
-  		phone = #{phone}
+  	set mail = #{userParam.mail} ,
+  		phone = #{userParam.phone}
   		where id = #{id}
   </update>
   
